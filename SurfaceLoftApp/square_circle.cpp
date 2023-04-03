@@ -34,20 +34,19 @@ void generateCircle(Point centerPoint, double numU, std::vector<Point>& circle)
 {
     double theta = (2 * PI) / (numU * 4);
 
-    double radius = 6;
+    double radius = 4;
 
     for (double u{ 0 }; u < 2 * PI; u += theta)
     {
         Point p;
 
-        p.dataPoints[0] = radius * cos(u);
-        p.dataPoints[1] = radius * sin(u);
-        p.dataPoints[2] = 30.0;
+        p.dataPoints[0] = (centerPoint.dataPoints[0] + radius) * cos(u);
+        p.dataPoints[1] = (centerPoint.dataPoints[1] + radius) * sin(u);
+        p.dataPoints[2] = centerPoint.dataPoints[2];
 
         circle.emplace_back(p);
     }
 }
-
 
 bool surfaceLoft(std::vector<Point>& c1, std::vector<Point>& c2, double numV, std::vector<std::vector<Point>>& loftSurface)
 {
@@ -97,9 +96,9 @@ void displayGNU(std::vector<std::vector<Point>>& loftSurface)
     }
 
     gp << "set hidden3d\n";
-    gp << "set xrange[-20:50]\n";
-    gp << "set yrange[-20:30]\n";
-    gp << "set zrange[-20:30]\n";
+    gp << "set xrange[-10:10]\n";
+    gp << "set yrange[-10:10]\n";
+    gp << "set zrange[-10:100]\n";
     gp << "set title 'Loft circle and square'\n";
     gp << "splot '-' with lines title 'v'\n";
 
@@ -107,33 +106,31 @@ void displayGNU(std::vector<std::vector<Point>>& loftSurface)
     std::cin.get();
 }
 
-
 int main()
 {
     std::vector<Point> line;
     std::vector<Point> circle;
 
-    Point p1 = {1.0, 1.0, 0.0};
-    Point p2 = { 1.0, 10.0, 0.0 };
-    Point p3 = { 10.0, 10.0, 0.0 };
-    Point p4 = { 10.0, 1.0, 0.0 };
+    Point p1 = {10, 0, 0}; 
+    Point p2 = { 0, 10, 0 };
+    Point p3 = { -10, 0, 0 };
+    Point p4 = { 0, -10, 0 };
 
-    Point centerPoint = { 8, 6, 80.0 };
+    Point centerPoint = { 0, 0, 50.0 };
     std::vector<std::vector<Point>> loftSurface;
 
-    double numU{ 20 }, numV{ 50 };
+    double numU{ 80 }, numV{ 80 };
+
+    generateCircle(centerPoint, numU, circle);
 
     generateLine(p1, p2, numU, line);
     generateLine(p2, p3, numU, line);
     generateLine(p3, p4, numU, line);
     generateLine(p4, p1, numU, line);
 
-    generateCircle(centerPoint, numU , circle);
-
     surfaceLoft(circle, line, numV, loftSurface);
 
     displayGNU(loftSurface);
-
 
     std::cin.get();
 }

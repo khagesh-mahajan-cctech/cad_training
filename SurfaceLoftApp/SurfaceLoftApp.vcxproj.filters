@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="square_circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceLoftApp.cpp">
+    <ClCompile Include="bottle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="line_cbezier.cpp">

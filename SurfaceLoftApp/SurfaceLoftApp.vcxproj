@@ -131,9 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bottle.cpp" />
     <ClCompile Include="line_cbezier.cpp" />
-    <ClCompile Include="square_circle.cpp" />
-    <ClCompile Include="SurfaceLoftApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gnuplot_iostream.h" />
