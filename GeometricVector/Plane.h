@@ -34,6 +34,11 @@ namespace GeomVector
 		{
 			return normal;
 		}
+
+		float getD() const
+		{
+			return d;
+		}
 	};
 
 	typedef Plane<float> Planef;
