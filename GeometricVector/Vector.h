@@ -46,6 +46,9 @@ namespace GeomVector
 		// Substraction
 		Vector<coordinate_type, dimension> operator-(const Vector<coordinate_type, dimension>&) const;
 
+		// Multiplication
+		Vector<coordinate_type, dimension> operator*(coordinate_type value);
+
 		// Less Than Operator
 		bool operator<(const Vector<coordinate_type, dimension>&) const;
 
@@ -104,6 +107,19 @@ namespace GeomVector
 		for (size_t i = 0; i < dimension; ++i)
 		{
 			temp_array[i] = coords[i] - _other.coords[i];
+		}
+
+		return Vector<coordinate_type, dimension>(temp_array);
+	}
+
+	template<class coordinate_type, size_t dimension>
+	inline Vector<coordinate_type, dimension> Vector<coordinate_type, dimension>::operator*(coordinate_type value)
+	{
+		std::array<coordinate_type, dimension> temp_array;
+
+		for (size_t i = 0; i < dimension; ++i)
+		{
+			temp_array[i] = coords[i] * value;
 		}
 
 		return Vector<coordinate_type, dimension>(temp_array);
