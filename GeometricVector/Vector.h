@@ -204,6 +204,8 @@ namespace GeomVector
 	float crossProduct2D(vector2f v1, vector2f v2);
 
 	vector3f crossProduct3D(vector3f v1, vector3f v2);
+
+	float scalerTripleProduct(vector3f v1, vector3f v2, vector3f v3);
 }
 
 #endif // !_VECTOR_H

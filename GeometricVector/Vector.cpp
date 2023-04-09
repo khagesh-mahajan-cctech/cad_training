@@ -31,3 +31,10 @@ GeomVector::vector3f GeomVector::crossProduct3D(vector3f v1, vector3f v2)
 	_z = v1[X] * v2[Y] - v1[Y] * v2[X];
 	return vector3f(_x, _y, _z);
 }
+
+float GeomVector::scalerTripleProduct(vector3f v1, vector3f v2, vector3f v3)
+{
+	auto crossV23 = crossProduct3D(v2, v3);
+
+	return dotProduct(v1, crossV23);
+}
