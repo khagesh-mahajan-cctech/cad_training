@@ -7,11 +7,13 @@
 
 namespace GeomVector
 {
+	template<class coordinate_type>
 	class Plane
 	{
 		vector3f normal;
 		float d = 0;
 
+	public:
 		Plane() {}
 
 		Plane(vector3f& _normal, float _constant) : normal(_normal), d(_constant) {
@@ -27,7 +29,14 @@ namespace GeomVector
 			normal.normalize();
 			d = dotProduct(normal, p1);
 		}
+
+		vector3f getNormal() const
+		{
+			return normal;
+		}
 	};
+
+	typedef Plane<float> Planef;
 }
 
 #endif // ! _PLANE_H
