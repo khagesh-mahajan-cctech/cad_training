@@ -61,3 +61,54 @@ bool GeomVector::Intersection(const Line2d& l1, const Line2d& l2, Point2d inters
 
 	return Intersection(l1_start, l1_end, l2_start, l2_end, intersectionPoint);
 }
+
+bool GeomVector::Intersection(const Line3d& line, const Planef& plane, Point3d& point)
+{
+	auto n = plane.getNormal();
+	auto D = plane.getD();
+	auto d = line.getDir();
+	auto p = line.getPoint();
+
+	auto nd = dotProduct(n, d);
+
+	if (!isEqualD(nd, ZERO))
+	{
+		auto t = (-1 * dotProduct(n, p) + D) / nd;
+		point.assign(X, p[X] + t * d[X]);
+		point.assign(Y, p[Y] + t * d[Y]);
+		point.assign(Z, p[Z] + t * d[Z]);
+
+		return true;
+	}
+	else
+		return false;
+	return false;
+}
+
+bool GeomVector::intersect(const Planef& plane1, const Planef& plane2, Line3d& line)
+{
+	auto n1 = plane1.getNormal();
+	auto n2 = plane2.getNormal();
+	auto d1 = plane1.getD();
+	auto d2 = plane2.getD();
+
+	auto direction = crossProduct3D(n1, n2);
+
+	if (isEqualD(direction.magnitude(), ZERO))
+		return false;
+
+	auto n1n2 = dotProduct(n1, n2);
+	auto n1n2_2 = n1n2 * n1n2;
+
+	auto a = (d2 * n1n2 - d1) / (n1n2_2 - 1);
+	auto b = (d1 * n1n2 - d2) / (n1n2_2 - 1);
+
+	auto point = n1 * a + n2 * b;
+
+	line.setPoint(point);
+	direction.normalize();
+
+	line.setDir(direction);
+
+	return true;
+}
