@@ -5,6 +5,7 @@
 #include <vector>
 #include "IGeometry.h"
 #include "Menu.h"
+#include "Point.h"
 
 int main()
 {
